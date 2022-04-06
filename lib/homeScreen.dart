@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 await Future.delayed(Duration(milliseconds: 100));
                 //disposing youtube controller
                 _youtubePlayerController.dispose();
-                loadYoutubeController(videoUrl: "https://youtu.be/0plZSJIPKdM");
+                loadYoutubeController(videoUrl: "https://youtu.be/LCcKYf1FROk");
                 setState(() {});
               },
               child: Container(
