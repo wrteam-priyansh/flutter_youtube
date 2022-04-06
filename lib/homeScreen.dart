@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     String youTubeId = YoutubePlayerController.convertUrlToId(
             "https://www.youtube.com/watch?v=q_Xa81PQlEw") ??
         "";
-    print(youTubeId);
     _youtubePlayerController = YoutubePlayerController(
       initialVideoId: youTubeId,
       params: YoutubePlayerParams(
