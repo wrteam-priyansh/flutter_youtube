@@ -54,34 +54,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   //related videos
   Widget _buildOtherVideos() {
-    return Expanded(
-      child: ListView.builder(
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height *
-                  (youtubePlayerPotraitHeightPercentage)),
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () async {
-                //Video controller assigned to given youtube player
-                assignedVideoController = false;
-                setState(() {});
-                //
-                await Future.delayed(Duration(milliseconds: 100));
-                //disposing youtube controller
-                _youtubePlayerController.dispose();
-                loadYoutubeController(videoUrl: "https://youtu.be/LCcKYf1FROk");
-                setState(() {});
-              },
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-                color: Colors.blue,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * (0.175),
-              ),
-            );
-          }),
-    );
+    return ListView.builder(
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height *
+                (youtubePlayerPotraitHeightPercentage)),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () async {
+              //Video controller assigned to given youtube player
+              assignedVideoController = false;
+              setState(() {});
+              //
+              await Future.delayed(Duration(milliseconds: 100));
+              //disposing youtube controller
+              _youtubePlayerController.dispose();
+              loadYoutubeController(videoUrl: "https://youtu.be/LCcKYf1FROk");
+              setState(() {});
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+              color: Colors.blue,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * (0.175),
+            ),
+          );
+        });
   }
 
   //To show play/pause button and and other control related details
@@ -126,30 +124,37 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   //To display the youtube video
   Widget _buildYoutubeVideoContainer(Orientation orientation) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      //changed the height of youtube player based on orientation
-      height: orientation == Orientation.landscape
-          ? MediaQuery.of(context).size.height
-          : MediaQuery.of(context).size.height *
-              youtubePlayerPotraitHeightPercentage,
-      child: Stack(children: [
-        Positioned.fill(
-          child: YoutubePlayerBuilder(
-              player: YoutubePlayer(
-                  actionsPadding: EdgeInsets.all(0),
-                  onReady: () {
-                    controlsMenuAnimationController.forward();
-                  },
-                  controller: _youtubePlayerController),
-              builder: (context, player) {
-                return player;
-              }),
-        ),
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        color: Colors.black,
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          //changed the height of youtube player based on orientation
+          height: orientation == Orientation.landscape
+              ? MediaQuery.of(context).size.height
+              : MediaQuery.of(context).size.height *
+                  youtubePlayerPotraitHeightPercentage,
+          child: Stack(children: [
+            Positioned.fill(
+              child: YoutubePlayerBuilder(
+                  player: YoutubePlayer(
+                      actionsPadding: EdgeInsets.all(0),
+                      onReady: () {
+                        controlsMenuAnimationController.forward();
+                      },
+                      controller: _youtubePlayerController),
+                  builder: (context, player) {
+                    return player;
+                  }),
+            ),
 
-        //show controls
-        _buildVideoControlMenuContainer(),
-      ]),
+            //show controls
+            _buildVideoControlMenuContainer(),
+          ]),
+        ),
+      ),
     );
   }
 
@@ -157,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (context, orientation) {
       return Scaffold(
-        appBar: orientation == Orientation.landscape ? null : AppBar(),
+        //appBar: orientation == Orientation.landscape ? null : AppBar(),
         body: Stack(
           children: [
             orientation == Orientation.landscape
